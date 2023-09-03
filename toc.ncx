@@ -18,33 +18,135 @@
     </navPoint>
     <navPoint id="navPoint2" playOrder="2">
       <navLabel>
+        <text>Files</text>
+      </navLabel>
+      <content src="files.xhtml" />  
+      <navPoint id="navPoint3" playOrder="2">
+        <navLabel>
+          <text>Files</text>
+        </navLabel>
+        <content src="files.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint4" playOrder="3">
+        <navLabel>
+          <text>Structure</text>
+        </navLabel>
+        <content src="files.xhtml#structure" />  
+      </navPoint>
+      <navPoint id="navPoint5" playOrder="4">
+        <navLabel>
+          <text>Parameters</text>
+        </navLabel>
+        <content src="files.xhtml#parameters" />  
+        <navPoint id="navPoint6" playOrder="4">
+          <navLabel>
+            <text>Parameters</text>
+          </navLabel>
+          <content src="files.xhtml#parameters" />  
+        </navPoint>
+        <navPoint id="navPoint7" playOrder="5">
+          <navLabel>
+            <text>{:name}</text>
+          </navLabel>
+          <content src="files.xhtml#name" />  
+        </navPoint>
+        <navPoint id="navPoint8" playOrder="6">
+          <navLabel>
+            <text>{:version}</text>
+          </navLabel>
+          <content src="files.xhtml#version" />  
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint9" playOrder="7">
+        <navLabel>
+          <text>Outputs</text>
+        </navLabel>
+        <content src="files.xhtml#outputs" />  
+        <navPoint id="navPoint10" playOrder="7">
+          <navLabel>
+            <text>Outputs</text>
+          </navLabel>
+          <content src="files.xhtml#outputs" />  
+        </navPoint>
+        <navPoint id="navPoint11" playOrder="8">
+          <navLabel>
+            <text>.epub</text>
+          </navLabel>
+          <content src="files.xhtml#epub" />  
+        </navPoint>
+        <navPoint id="navPoint12" playOrder="9">
+          <navLabel>
+            <text>.whl</text>
+          </navLabel>
+          <content src="files.xhtml#whl" />  
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint13" playOrder="10">
+      <navLabel>
         <text>repub API</text>
       </navLabel>
       <content src="api.xhtml" />  
-      <navPoint id="navPoint3" playOrder="2">
+      <navPoint id="navPoint14" playOrder="10">
         <navLabel>
           <text>repub API</text>
         </navLabel>
         <content src="api.xhtml" />  
       </navPoint>
-      <navPoint id="navPoint4" playOrder="3">
+      <navPoint id="navPoint15" playOrder="11">
         <navLabel>
           <text>Actions</text>
         </navLabel>
         <content src="api.xhtml#module-repub.actions" />  
-        <navPoint id="navPoint5" playOrder="3">
+        <navPoint id="navPoint16" playOrder="11">
           <navLabel>
             <text>Actions</text>
           </navLabel>
           <content src="api.xhtml#module-repub.actions" />  
         </navPoint>
-        <navPoint id="navPoint6" playOrder="4">
+        <navPoint id="navPoint17" playOrder="12">
           <navLabel>
             <text>extract_from_archive()</text>
           </navLabel>
           <content src="api.xhtml#repub.actions.extract_from_archive" />  
         </navPoint>
       </navPoint>
+    </navPoint>
+    <navPoint id="navPoint18" playOrder="13">
+      <navLabel>
+        <text>Contributing</text>
+      </navLabel>
+      <content src="contributing.xhtml" />  
+      <navPoint id="navPoint19" playOrder="13">
+        <navLabel>
+          <text>Contributing</text>
+        </navLabel>
+        <content src="contributing.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint20" playOrder="14">
+        <navLabel>
+          <text>Bootstrap with Mambaforge</text>
+        </navLabel>
+        <content src="contributing.xhtml#bootstrap-with-mambaforge" />  
+      </navPoint>
+      <navPoint id="navPoint21" playOrder="15">
+        <navLabel>
+          <text>Create the environment</text>
+        </navLabel>
+        <content src="contributing.xhtml#create-the-environment" />  
+      </navPoint>
+      <navPoint id="navPoint22" playOrder="16">
+        <navLabel>
+          <text>Use doit</text>
+        </navLabel>
+        <content src="contributing.xhtml#use-doit" />  
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint23" playOrder="17">
+      <navLabel>
+        <text>Roadmap</text>
+      </navLabel>
+      <content src="roadmap.xhtml" />  
     </navPoint>
   </navMap>
 </ncx>

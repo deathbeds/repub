@@ -8,7 +8,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 version = "0.1.0"
 
-
 [project.urls]
 "Bug Tracker" = "https://github.com/deathbeds/repub/issues"
 "Changelog" = "https://github.com/deathbeds/repub/blob/main/CHANGELOG.md"
@@ -34,6 +33,7 @@ PY_VERSION = ":get::toml::./pyproject.toml::project::version"
 SOURCE_DATE_EPOCH = ":get::json::./SOURCE_DATE_EPOCH.json::SOURCE_DATE_EPOCH"
 
 [tool.doitoml.tokens]
+sphinx_opts = ["sphinx-build", "-E", "-W", "--color", "::docs"]
 taplo_opts = [
   "--option=array_auto_collapse=true",
   "--option=compact_inline_tables=true",
@@ -50,10 +50,25 @@ all_wheel_dist_info = [
   "${PY_DIST_INFO}/RECORD",
   "${PY_DIST_INFO}/WHEEL",
 ]
+docs = ["docs"]
 docs_buildinfo_epub = ["build/docs/epub/.buildinfo"]
 docs_buildinfo_html = ["build/docs/html/.buildinfo"]
+docs_deps_all = [
+  "::py_src",
+  "::ppt",
+  "::py_docs",
+  "::md_all",
+  "::source_date_epoch",
+  "::docs_deps_static",
+]
+docs_deps_static = [":rglob::docs/_static::*.css::*.svg"]
 epub = ["build/docs/epub/${PY_NAME}-${PY_VERSION}.epub"]
 license = ["LICENSE"]
+lite = ["lite"]
+lite_deps_all = [":glob::lite::*.json"]
+lite_sha256sums = ["build/lite/SHA256SUMS"]
+md_all = [":glob::.::*.md", "::md_docs"]
+md_docs = [":rglob::docs::*.md"]
 ppt = ["pyproject.toml"]
 py_all = ["::py_src", "::py_docs"]
 py_docs = [":glob::docs::*.py"]
@@ -79,24 +94,52 @@ actions = [["flit", "--debug", "build", "--no-use-vcs"]]
 file_dep = ["::py_src", "::ppt", "::license", "::readme", "::source_date_epoch"]
 targets = ["::wheel", "::sdist"]
 
+[tool.doitoml.tasks.lite]
+actions = [
+  [
+    "jupyter",
+    "lite",
+    "build",
+  ],
+  [
+    "jupyter",
+    "lite",
+    "check",
+  ],
+  [
+    "jupyter",
+    "lite",
+    "doit",
+    "pre_archive:report:SHA256SUMS",
+  ],
+]
+file_dep = ["::lite_deps_all"]
+meta = {doitoml = {cwd = "::lite"}}
+targets = ["::lite_sha256sums"]
+
 [tool.doitoml.tasks.docs.sphinx.html]
-actions = [["sphinx-build", "-E", "-W", "--color", "-b", "html", "docs", "build/docs/html"]]
+actions = [["::sphinx_opts", "-b", "html", "build/docs/html"]]
 doc = "Build HTML documentation with `sphinx`"
-file_dep = ["::py_src", "::ppt", "::py_docs", "::all_docs_md", "::source_date_epoch"]
+file_dep = ["::docs_deps_all"]
 targets = ["::docs_buildinfo_html"]
 
 [tool.doitoml.tasks.docs.sphinx.epub]
-actions = [["sphinx-build", "-E", "-W", "--color", "-b", "epub", "docs", "build/docs/epub"]]
+actions = [["::sphinx_opts", "-b", "epub", "build/docs/epub"]]
 doc = "Build EPUB documentation with `sphinx`"
-file_dep = ["::py_src", "::ppt", "::py_docs", "::all_docs_md", "::source_date_epoch"]
+file_dep = ["::docs_deps_all"]
 targets = ["::docs_buildinfo_epub", "::epub"]
 
 [tool.doitoml.tasks.repub.wheel]
-actions = [{py = {"repub.actions:extract_from_archive" = {args = ["::wheel", "${PY_DIST_INFO}"]}}}]
+actions = [
+  {py = {"repub.actions:extract_from_archive" = {args = [
+    "::wheel",
+    "${PY_DIST_INFO}/*",
+  ]}}},
+]
 file_dep = ["::wheel"]
 targets = ["::all_wheel_dist_info"]
 
-[tool.doitoml.tasks.repub.epub]
+[tool.doitoml.tasks.repub.docs]
 actions = [
   {py = {"repub.actions:extract_from_archive" = {args = [
     "::epub",
@@ -105,14 +148,85 @@ actions = [
     "*.opf",
     "*.ncx",
     "*.xhtml",
-    "_static/**/*",
+    "*_static/*",
   ]}}},
+  {py = {"repub.actions:copy_some" = {args = [
+    "build/docs/html",
+    ".",
+  ], kwargs = {excludes = [
+    ".doctrees/*",
+    ".buildinfo",
+  ]}}}},
 ]
-file_dep = ["::epub"]
-# targets = ["::all_wheel_dist_info"]
+file_dep = ["::epub", "::docs_buildinfo_html"]
 
 [tool.doitoml.tasks.dist.zip]
 actions = [["git", "archive", "--format=zip", "--output", "::zip", "HEAD"]]
+file_dep = ["::wheel", "::epub"]
 targets = ["::zip"]
 task_dep = ["repub"]
-file_dep = ["::wheel", "::epub"]
+
+[tool.ruff]
+cache-dir = "build/.cache/ruff"
+ignore = [
+  "D211",
+  "D213",
+  # if it doesn't bother mypy...
+  "ANN101",
+  "ANN401",
+  "PGH003",
+  # keep 3.8 compat
+  "UP006",
+  "UP007",
+]
+select = [
+  "A",
+  "ANN",
+  "ARG",
+  "B",
+  "BLE",
+  "C4",
+  "C90",
+  "COM",
+  "D",
+  "DJ",
+  "DTZ",
+  "E",
+  "EM",
+  "ERA",
+  "EXE",
+  "F",
+  # "FBT",
+  "G",
+  "I",
+  "ICN",
+  "INP",
+  "ISC",
+  "N",
+  "NPY",
+  "PD",
+  "PGH",
+  "PIE",
+  "PL",
+  "PT",
+  "PTH",
+  "PYI",
+  "Q",
+  "RET",
+  "RSE",
+  "RUF",
+  "S",
+  "SIM",
+  "SLF",
+  "T10",
+  "T20",
+  "TCH",
+  "TID",
+  # "TRY",
+  "UP",
+  "W",
+  "YTT",
+]
+
+[tool.ruff.isort]
+known-first-party = ["repub", "repub.*"]

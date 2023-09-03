@@ -20,10 +20,104 @@
             
   <section id="repub">
 <h1><code class="docutils literal notranslate"><span class="pre">repub</span></code></h1>
+<p>A template for a repository in an always-published state as an:</p>
+<ul class="simple">
+<li><p>E-Reader compatible <code class="docutils literal notranslate"><span class="pre">.epub</span></code></p></li>
+<li><p>installable</p>
+<ul>
+<li><p>Python Wheel <code class="docutils literal notranslate"><span class="pre">.whl</span></code></p></li>
+</ul>
+</li>
+<li><p>hostable</p>
+<ul>
+<li><p>JupyterLite application</p></li>
+</ul>
+</li>
+</ul>
+<section id="how-it-works">
+<h2>How it Works</h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#get-started"><span class="std std-doc">get started</span></a></p></li>
+<li><p><a class="reference internal" href="#make-changes"><span class="std std-doc">make changes</span></a></p></li>
+<li><p><a class="reference internal" href="#publish"><span class="std std-doc">publish</span></a></p></li>
+<li><p><a class="reference internal" href="#get-a-link"><span class="std std-doc">get a link</span></a></p></li>
+<li><p><a class="reference internal" href="#share"><span class="std std-doc">share</span></a></p></li>
+</ul>
+</section>
+<section id="get-started">
+<h2>Get Started</h2>
+<section id="localhost">
+<h3>Localhost</h3>
+<ul class="simple">
+<li><p>clone this repo</p>
+<ul>
+<li><p>or download an archive and unpack it</p></li>
+</ul>
+</li>
+<li><p>host it with your favorite local HTTP server, such as:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">http.server</span> <span class="pre">-b</span> <span class="pre">127.0.0.1</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="other-people-s-computers">
+<h3>Other People’s Computers</h3>
+<section id="github">
+<h4>GitHub</h4>
+<ul class="simple">
+<li><p>visit https://github.com/deathbeds/repub</p>
+<ul>
+<li><p>fork the repo into your namespace</p></li>
+<li><p>visit <code class="docutils literal notranslate"><span class="pre">https://{your-username}.github.io/{repub}</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="make-changes">
+<h2>Make Changes</h2>
+<ul class="simple">
+<li><p>from the Web UI</p>
+<ul>
+<li><p>add files by drag and drop</p></li>
+<li><p>edit files directly with the built-in editor</p></li>
+<li><p>add new extensions</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="publish">
+<h2>Publish</h2>
+</section>
+<section id="get-a-link">
+<h2>Get a Link</h2>
+</section>
+<section id="share">
+<h2>Share</h2>
+<ul class="simple">
+<li><p>from your link</p></li>
+</ul>
+</section>
 <section id="documentation-contents">
 <h2>Documentation Contents</h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="files.xhtml">Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="files.xhtml#structure">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.xhtml#parameters">Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="files.xhtml#name"><code class="docutils literal notranslate"><span class="pre">{:name}</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="files.xhtml#version"><code class="docutils literal notranslate"><span class="pre">{:version}</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="files.xhtml#outputs">Outputs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="files.xhtml#epub"><code class="docutils literal notranslate"><span class="pre">.epub</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="files.xhtml#whl"><code class="docutils literal notranslate"><span class="pre">.whl</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api.xhtml"><code class="docutils literal notranslate"><span class="pre">repub</span></code> API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.xhtml#module-repub.actions">Actions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api.xhtml#repub.actions.extract_from_archive"><code class="docutils literal notranslate"><span class="pre">extract_from_archive()</span></code></a></li>
@@ -31,6 +125,13 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.xhtml">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.xhtml#bootstrap-with-mambaforge">Bootstrap with Mambaforge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.xhtml#create-the-environment">Create the environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.xhtml#use-doit">Use doit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="roadmap.xhtml">Roadmap</a></li>
 </ul>
 </div>
 </section>

@@ -3,7 +3,6 @@ import datetime
 import os
 import re
 from pathlib import Path
-from typing import Any, Dict
 
 import tomli
 
@@ -22,7 +21,7 @@ RE_GH = (
     r"/tree/(?P<github_version>.*)"
 )
 REPO_INFO = re.search(RE_GH, PROJ_DATA["project"]["urls"]["Source"])
-NOW = datetime.datetime.now(tz=datetime.timezone.utc).date()
+NOW = datetime.datetime.now(tz=datetime.UTC).date()
 
 # metadata
 author = PROJ_DATA["project"]["authors"][0]["name"]
@@ -72,6 +71,7 @@ suppress_warnings = ["autosectionlabel.*"]
 # theme
 html_static_path = [
     "_static",
+    "../build/lite",
 ]
 html_theme = "pydata_sphinx_theme"
 html_logo = "_static/img/wordart.svg"
@@ -87,11 +87,11 @@ html_theme_options = {
             "name": "PyPI",
             "url": PROJ_DATA["project"]["urls"]["PyPI"],
             "icon": "fa-brands fa-python",
-        }
+        },
     ],
+    "pygment_light_style": "pitaya-smoothie",
+    "pygment_dark_style": "gotthard-dark",
 }
-
-html_sidebars: Dict[str, Any] = {"demo": []}
 
 suppress_warnings = ["epub.unknown_project_files"]
 

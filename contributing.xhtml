@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Contributing</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/epub.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <section id="contributing">
+<h1>Contributing</h1>
+<section id="bootstrap-with-mambaforge">
+<h2>Bootstrap with Mambaforge</h2>
+<ul class="simple">
+<li><p>get the latest compatible <code class="docutils literal notranslate"><span class="pre">Mambaforge</span></code> from <a class="reference external" href="https://conda-forge.org/miniforge">miniforge</a><span class="link-target"> [https://conda-forge.org/miniforge]</span></p></li>
+<li><p>activate the <code class="docutils literal notranslate"><span class="pre">base</span></code> environment</p></li>
+</ul>
+</section>
+<section id="create-the-environment">
+<h2>Create the environment</h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>create<span class="w"> </span>--file<span class="w"> </span>.binder/conda-linux-64.lock<span class="w"> </span>--prefix<span class="w"> </span>.venv
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>activate the new environment</p></li>
+</ul>
+</section>
+<section id="use-doit">
+<h2>Use doit</h2>
+<p>See all the doit tasks</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>doit<span class="w"> </span>list
+</pre></div>
+</div>
+<p>Run the default tasks:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>doit
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>
