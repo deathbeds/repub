@@ -7,5 +7,6 @@
 files
 api
 contributing
+changelog
 roadmap
 ```

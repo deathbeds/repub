@@ -144,6 +144,24 @@
     </navPoint>
     <navPoint id="navPoint23" playOrder="17">
       <navLabel>
+        <text>Changelog</text>
+      </navLabel>
+      <content src="changelog.xhtml" />  
+      <navPoint id="navPoint24" playOrder="17">
+        <navLabel>
+          <text>Changelog</text>
+        </navLabel>
+        <content src="changelog.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint25" playOrder="18">
+        <navLabel>
+          <text>0.1.0</text>
+        </navLabel>
+        <content src="changelog.xhtml#id1" />  
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint26" playOrder="19">
+      <navLabel>
         <text>Roadmap</text>
       </navLabel>
       <content src="roadmap.xhtml" />  

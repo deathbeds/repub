@@ -5,3 +5,4 @@ __pycache__/
 build/
 dist/
 ex/
+!_static/build

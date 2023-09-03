@@ -60,6 +60,7 @@ docs_deps_all = [
   "::md_all",
   "::source_date_epoch",
   "::docs_deps_static",
+  "::lite_sha256sums",
 ]
 docs_deps_static = [":rglob::docs/_static::*.css::*.svg"]
 epub = ["build/docs/epub/${PY_NAME}-${PY_VERSION}.epub"]

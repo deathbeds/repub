@@ -1,5 +1,6 @@
 {
     "LiteBuildConfig": {
-        "output_dir": "../build/lite"
+        "output_dir": "../build/lite",
+        "contents": ["../README.md", "../ROADMAP.md", "../CONTRIBUTING.md", "../CHANGELOG.md", "../LICENSE"]
     }
 }

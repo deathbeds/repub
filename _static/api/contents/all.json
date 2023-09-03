@@ -1,0 +1,73 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2020-02-02T00:00:00",
+      "format": null,
+      "last_modified": "2020-02-02T00:00:00",
+      "mimetype": null,
+      "name": "LICENSE",
+      "path": "./LICENSE",
+      "size": 1494,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2020-02-02T00:00:00",
+      "format": null,
+      "last_modified": "2020-02-02T00:00:00",
+      "mimetype": "text/markdown",
+      "name": "ROADMAP.md",
+      "path": "./ROADMAP.md",
+      "size": 283,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2020-02-02T00:00:00",
+      "format": null,
+      "last_modified": "2020-02-02T00:00:00",
+      "mimetype": "text/markdown",
+      "name": "CHANGELOG.md",
+      "path": "./CHANGELOG.md",
+      "size": 31,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2020-02-02T00:00:00",
+      "format": null,
+      "last_modified": "2020-02-02T00:00:00",
+      "mimetype": "text/markdown",
+      "name": "README.md",
+      "path": "./README.md",
+      "size": 894,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2020-02-02T00:00:00",
+      "format": null,
+      "last_modified": "2020-02-02T00:00:00",
+      "mimetype": "text/markdown",
+      "name": "CONTRIBUTING.md",
+      "path": "./CONTRIBUTING.md",
+      "size": 409,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2020-02-02T00:00:00",
+  "format": "json",
+  "last_modified": "2020-02-02T00:00:00",
+  "mimetype": null,
+  "name": ".",
+  "path": ".",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}
