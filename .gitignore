@@ -1,0 +1,7 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+*.doit.*
+build/
+dist/
+ex/

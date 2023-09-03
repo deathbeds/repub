@@ -1,0 +1,118 @@
+[project]
+authors = [{name = "Dead Pixels Collective", email = "deathbeds+noreply@githuh.com"}]
+classifiers = ["License :: OSI Approved :: BSD License"]
+description = "a self-replicating publisher for the web"
+license = {file = "LICENSE"}
+name = "repub"
+readme = "README.md"
+requires-python = ">=3.11"
+version = "0.1.0"
+
+
+[project.urls]
+"Bug Tracker" = "https://github.com/deathbeds/repub/issues"
+"Changelog" = "https://github.com/deathbeds/repub/blob/main/CHANGELOG.md"
+"Documentation" = "https://repub.rtfd.io"
+"PyPI" = "https://pypi.org/project/repub"
+"Source" = "https://github.com/deathbeds/repub/tree/main"
+
+[tool.doit]
+backend = "sqlite3"
+loader = "doitoml"
+par_type = "thread"
+verbosity = 2
+
+[tool.doit.commands.list]
+status = true
+subtasks = true
+
+[tool.doitoml.env]
+CI = 0
+PY_DIST_INFO = "${PY_NAME}-${PY_VERSION}.dist-info"
+PY_NAME = ":get::toml::./pyproject.toml::project::name"
+PY_VERSION = ":get::toml::./pyproject.toml::project::version"
+SOURCE_DATE_EPOCH = ":get::json::./SOURCE_DATE_EPOCH.json::SOURCE_DATE_EPOCH"
+
+[tool.doitoml.tokens]
+taplo_opts = [
+  "--option=array_auto_collapse=true",
+  "--option=compact_inline_tables=true",
+  "--option=column_width=100",
+  "--option=reorder_keys=true",
+]
+
+[tool.doitoml.paths]
+all_docs_md = [":rglob::docs::*.md"]
+all_toml = ["::ppt"]
+all_wheel_dist_info = [
+  "${PY_DIST_INFO}/LICENSE",
+  "${PY_DIST_INFO}/METADATA",
+  "${PY_DIST_INFO}/RECORD",
+  "${PY_DIST_INFO}/WHEEL",
+]
+docs_buildinfo_epub = ["build/docs/epub/.buildinfo"]
+docs_buildinfo_html = ["build/docs/html/.buildinfo"]
+epub = ["build/docs/epub/${PY_NAME}-${PY_VERSION}.epub"]
+license = ["LICENSE"]
+ppt = ["pyproject.toml"]
+py_all = ["::py_src", "::py_docs"]
+py_docs = [":glob::docs::*.py"]
+py_src = [":glob::repub::*.py"]
+readme = ["README.md"]
+sdist = ["dist/${PY_NAME}-${PY_VERSION}.tar.gz"]
+source_date_epoch = ["SOURCE_DATE_EPOCH.json"]
+wheel = ["dist/${PY_NAME}-${PY_VERSION}-py3-none-any.whl"]
+wheel_dist_info = ["${PY_DIST_INFO}"]
+zip = ["dist/${PY_NAME}-${PY_VERSION}.zip"]
+
+[tool.doitoml.tasks.fix.py]
+actions = [["ruff", "--fix-only", "::py_all"], ["black", "--quiet", "::py_all"]]
+file_dep = ["::ppt", "::py_all"]
+task_dep = ["fix:toml"]
+
+[tool.doitoml.tasks.fix.toml]
+actions = [["taplo", "fmt", "::taplo_opts", "::all_toml"]]
+file_dep = ["::all_toml"]
+
+[tool.doitoml.tasks.dist.flit]
+actions = [["flit", "--debug", "build", "--no-use-vcs"]]
+file_dep = ["::py_src", "::ppt", "::license", "::readme", "::source_date_epoch"]
+targets = ["::wheel", "::sdist"]
+
+[tool.doitoml.tasks.docs.sphinx.html]
+actions = [["sphinx-build", "-E", "-W", "--color", "-b", "html", "docs", "build/docs/html"]]
+doc = "Build HTML documentation with `sphinx`"
+file_dep = ["::py_src", "::ppt", "::py_docs", "::all_docs_md", "::source_date_epoch"]
+targets = ["::docs_buildinfo_html"]
+
+[tool.doitoml.tasks.docs.sphinx.epub]
+actions = [["sphinx-build", "-E", "-W", "--color", "-b", "epub", "docs", "build/docs/epub"]]
+doc = "Build EPUB documentation with `sphinx`"
+file_dep = ["::py_src", "::ppt", "::py_docs", "::all_docs_md", "::source_date_epoch"]
+targets = ["::docs_buildinfo_epub", "::epub"]
+
+[tool.doitoml.tasks.repub.wheel]
+actions = [{py = {"repub.actions:extract_from_archive" = {args = ["::wheel", "${PY_DIST_INFO}"]}}}]
+file_dep = ["::wheel"]
+targets = ["::all_wheel_dist_info"]
+
+[tool.doitoml.tasks.repub.epub]
+actions = [
+  {py = {"repub.actions:extract_from_archive" = {args = [
+    "::epub",
+    "META-INF/*",
+    "mimetype",
+    "*.opf",
+    "*.ncx",
+    "*.xhtml",
+    "_static/**/*",
+  ]}}},
+]
+file_dep = ["::epub"]
+# targets = ["::all_wheel_dist_info"]
+
+[tool.doitoml.tasks.dist.zip]
+actions = [["git", "archive", "--format=zip", "--output", "::zip", "HEAD"]]
+targets = ["::zip"]
+task_dep = ["repub"]
+file_dep = ["::wheel", "::epub"]

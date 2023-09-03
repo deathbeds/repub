@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ["*"]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: 1
+  PYTHONIOENCODING: utf-8
+  PYTHONUNBUFFERED: 1
+  MAMBA_NO_BANNER: 1
+  # ours
+  CACHE_EPOCH: 2
+  ATEST_RETRIES: 3
+
+defaults:
+  run:
+    shell: bash -l {0}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install (conda)
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          environment-file: ./.binder/environment.yml
+          use-mamba: true
+
+      - name: setup (python)
+        run: doit lock:install:build_linux-64_lab4.0
+
+      - name: cache (node)
+        uses: actions/cache@v3
+        id: cache-node-modules
+        with:
+          path: |-
+            **/node_modules
+            build/.cache/yarn
+          key: |
+            ${{ env.CACHE_EPOCH }}-ubuntu-node-modules-${{ hashFiles('yarn.lock') }}
+
+      - name: setup (js)
+        run: doit js-root:setup
+
+      - name: build
+        run: doit *:build:* || doit list
+
+      - name: build (retry)
+        run: doit *:build:*
+
+      - name: dist
+        run: doit *:dist:* || doit *:dist:*
+
+      - name: upload (dist)
+        uses: actions/upload-artifact@v3
+        with:
+          name: repub-${{ github.run_number }}-dist
+          path: ./dist
+
+      - name: Rename uncached conda packages
+        run: mv "${CONDA_PKGS_DIR}" "${CONDA_PKGS_DIR}_do_not_cache"
